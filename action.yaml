@@ -3,7 +3,7 @@ description: "Install the kli Konstellation tool"
 author: "Borja Lopez"
 branding:
   color: blue
-  icon: meh
+  icon: anchor
 inputs:
   version:
     description: "The kli version to install (default: v3.5.0)"
