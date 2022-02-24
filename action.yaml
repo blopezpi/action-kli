@@ -1,0 +1,15 @@
+name: "KLI Konstellation Tool"
+description: "Install the kli Konstellation tool"
+author: "Borja Lopez"
+branding:
+  color: blue
+  icon: meh
+inputs:
+  version:
+    description: "The kli version to install (default: v3.5.0)"
+    default: 1.0-alpha.4
+runs:
+  using: composite
+  steps:
+    - run: "$GITHUB_ACTION_PATH/kli.sh --version ${{ inputs.version }}"
+      shell: bash

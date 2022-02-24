@@ -1,0 +1,18 @@
+on:
+  push:
+    - main
+
+jobs:
+  install_kli:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Install kli
+        uses: ./ 
+        id: kli
+        with:
+          version: 1.0-alpha.2
+
+      - name: Echo version
+        run: |
+          kli version
+
