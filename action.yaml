@@ -7,7 +7,7 @@ branding:
 inputs:
   version:
     description: "The kli version to install (default: v3.5.0)"
-    default: 1.0-alpha.4
+    default: v1.0-alpha.4
 runs:
   using: composite
   steps:

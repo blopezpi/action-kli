@@ -4,7 +4,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-DEFAULT_KLI_VERSION=1.0-alpha.4
+DEFAULT_KLI_VERSION=v1.0-alpha.4
 
 show_help() {
 cat << EOF
@@ -19,7 +19,33 @@ main() {
 
     parse_command_line "$@"
 
-    install_chart_testing
+    install_kli
+}
+
+parse_command_line() {
+    while :; do
+        case "${1:-}" in
+            -h|--help)
+                show_help
+                exit
+                ;;
+            -v|--version)
+                if [[ -n "${2:-}" ]]; then
+                    version="$2"
+                    shift
+                else
+                    echo "ERROR: '-v|--version' cannot be empty." >&2
+                    show_help
+                    exit 1
+                fi
+                ;;
+            *)
+                break
+                ;;
+        esac
+
+        shift
+    done
 }
 
 install_kli() {
@@ -35,13 +61,14 @@ install_kli() {
     if [[ ! -d "$cache_dir" ]]; then
         mkdir -p "$cache_dir"
         echo "Installing kli..."
-        curl -sSLo kli.tar.gz "https://github.com/konstellation/kli/releases/download/$version/kli_${version}_linux_amd64.tar.gz"
+        curl -sSLo kli.tar.gz "https://github.com/konstellation-io/kli/releases/download/$version/kli_${version#v}_linux_amd64.tar.gz"
         tar -xzf kli.tar.gz -C "$cache_dir"
         rm -f kli.tar.gz
     fi
 
     echo 'Adding kli directory to PATH...'
     echo "$cache_dir" >> "$GITHUB_PATH"
+    mv "$cache_dir/kli_${version#v}_linux_amd64/bin/kli" "$cache_dir/kli"
 
     "$cache_dir/kli" version
 }

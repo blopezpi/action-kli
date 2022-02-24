@@ -1,16 +1,21 @@
+name: "Kli"
+
 on:
   push:
-    - main
+    branches:
+      - main
 
 jobs:
   install_kli:
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v2
+
       - name: Install kli
         uses: ./ 
         id: kli
         with:
-          version: 1.0-alpha.2
+          version: v1.0-alpha.2
 
       - name: Echo version
         run: |
