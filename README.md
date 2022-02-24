@@ -27,7 +27,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up kli
-        uses: blopezpi/action-kli@v1.0.1
+        uses: blopezpi/action-kli@v1.0.0
         with:
           version: v1.0-alpha.4
 ```
